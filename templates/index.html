@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Grammar Checker</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <h1>AI Grammar Checker</h1>
+        <p>Check your grammar and improve your writing.</p>
+
+        <form method="POST">
+            <textarea name="text" rows="6"
+                placeholder="Enter your English text here..."
+                required>{{ original_text }}</textarea>
+
+            <button type="submit">Check Grammar</button>
+        </form>
+
+        {% if original_text %}
+            <h2>Grammar Results</h2>
+            <p>Errors Found: {{ errors|length }}</p>
+
+            {% for error in errors %}
+                <div class="error">
+                    <p><b>Wrong:</b> {{ error.wrong }}</p>
+                    <p><b>Suggestion:</b> {{ error.suggestion }}</p>
+                    <p><b>Explanation:</b> {{ error.message }}</p>
+                </div>
+            {% endfor %}
+
+            <h2>Corrected Text</h2>
+            <div class="result">{{ corrected_text }}</div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
